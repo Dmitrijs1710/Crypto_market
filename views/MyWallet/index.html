@@ -27,7 +27,7 @@
             <div class="user-coin-count">{{item.count | e}}</div>
         </div>
         <form class="sell-form" method="post" action="/wallet/token={{item.coin.id | e('url')}}">
-            <label for="input-token">Estimated outcome: {{item.income | number_format(2,'.')}} $</label>
+            <label for="input-token">Profit selling 1 coin: {{item.income | number_format(2,'.')}} $</label>
             <input id="input-token" name="count" type="number" step="0.00000001" placeholder="{{attribute(error,item.coin.id)}}">
             <input type="submit" value="Sell">
         </form>
