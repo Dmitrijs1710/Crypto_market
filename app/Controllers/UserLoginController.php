@@ -9,6 +9,14 @@ use App\Template;
 
 class UserLoginController
 {
+    private AuthenticationService $authenticationService;
+
+    public function __construct(AuthenticationService $authenticationService)
+    {
+
+        $this->authenticationService = $authenticationService;
+    }
+
     public function index(): Template
     {
         if ($_SESSION['id'] !== null) {
@@ -23,7 +31,7 @@ class UserLoginController
     {
         $email = $_POST['email'];
         $password = $_POST['password'];
-        $response = (new AuthenticationService())->execute(new UserLoginRequest($email, $password));
+        $response = ($this->authenticationService)->execute(new UserLoginRequest($email, $password));
         if ($response) {
             return new Redirect('/login/successful');
         }

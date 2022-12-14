@@ -7,7 +7,7 @@ use App\Models\Coin;
 use App\Models\Collections\CoinCollection;
 use App\Models\CoinProperty\Quote;
 
-class CoinsFromApi implements CoinsRepository
+class CoinsFromApiRepository implements CoinsRepository
 {
 
     public function getFirstTen(): CoinCollection

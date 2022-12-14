@@ -3,23 +3,36 @@
 require_once "vendor/autoload.php";
 
 
-
 use App\Redirect;
 use App\Template;
 use App\ViewVariables\ErrorVariables;
 use App\ViewVariables\LoginVariables;
-use App\ViewVariables\UserCoinsVariables;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
-use Twig\Extra\Intl\IntlExtension;
 use Twig\Loader\FilesystemLoader;
 
 session_start();
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+$container = new DI\Container();
+
+$container->set(
+    App\Repositories\CoinsRepository::class,
+    DI\create(App\Repositories\CoinsFromApiRepository::class)
+);
+$container->set(
+    App\Repositories\UserCoinRepository::class,
+    DI\create(App\Repositories\UserCoinFromMysqlRepository::class)
+);
+$container->set(
+    App\Repositories\UsersRepository::class,
+    DI\create(App\Repositories\UserFromMysqlRepository::class)
+);
+
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', ['\App\Controllers\CoinController', 'index']);
@@ -51,8 +64,8 @@ $localVariables = [
 ];
 
 foreach ($localVariables as $variable) {
-    $variable = new $variable;
-    $twig->addGlobal($variable->getName(), $variable->getValues());
+    $variable = $container->get($variable);
+    $twig->addGlobal($variable->getName(),$variable->getValues());
 }
 
 // Fetch method and URI from somewhere
@@ -76,7 +89,7 @@ switch ($routeInfo[0]) {
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
         [$controller, $method] = $handler;
-        $response = (new $controller)->{$method}($vars);
+        $response = $container->get($controller)->{$method}($vars);
 
         if ($response instanceof Template) {
             try {

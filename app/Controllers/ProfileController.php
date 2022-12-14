@@ -9,6 +9,14 @@ use App\Validate;
 
 class ProfileController
 {
+    private UserDataUpdateService $userDataUpdateService;
+
+    public function __construct(UserDataUpdateService $userDataUpdateService)
+    {
+
+        $this->userDataUpdateService = $userDataUpdateService;
+    }
+
     public function index(): Template
     {
         $id = $_SESSION['id'] ?? null;
@@ -44,7 +52,7 @@ class ProfileController
             $value[] = $_POST['email'];
         }
         if(!empty($field)&& empty($_SESSION['error'])){
-            (new UserDataUpdateService())->execute($field, $value, $_SESSION['id']);
+            ($this->userDataUpdateService)->execute($field, $value, $_SESSION['id']);
         }
 
         return new Redirect('/profile');

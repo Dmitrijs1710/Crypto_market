@@ -2,11 +2,22 @@
 
 namespace App\Services;
 
-use App\Repositories\UserCoinFromMysql;
+use App\Models\UserCoins\UserCoinCollection;
+
+use App\Repositories\UserCoinRepository;
 
 class SelectedUserCoinGetterService
 {
-    public function execute(int $userId){
-        return (new UserCoinFromMysql())->getCoinCollectionByUserId($userId);
+    private UserCoinRepository $userCoinRepository;
+
+    public function __construct(UserCoinRepository $userCoinRepository)
+    {
+
+        $this->userCoinRepository = $userCoinRepository;
+    }
+
+    public function execute(int $userId): UserCoinCollection
+    {
+        return $this->userCoinRepository->getCoinCollectionByUserId($userId);
     }
 }

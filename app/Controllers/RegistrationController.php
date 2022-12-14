@@ -11,6 +11,14 @@ use App\Validate;
 
 class RegistrationController
 {
+    private RegistrationService $registrationService;
+
+    public function __construct(RegistrationService $registrationService)
+    {
+
+        $this->registrationService = $registrationService;
+    }
+
     public function index(): Template
     {
         if ($_SESSION['id'] !== null) {
@@ -28,7 +36,7 @@ class RegistrationController
         Validate::emailChecker($_POST['email']);
         Validate::nameChecker($_POST['name']);
         $user = new User($_POST['email'], $_POST['name'], 0, null, $_POST['password']);
-        if ((new RegistrationService())->execute($user)) {
+        if ($this->registrationService->execute($user)) {
             return new Redirect('/registration/successful');
         } else {
             return new Redirect('/registration');

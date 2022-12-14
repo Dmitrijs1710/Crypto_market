@@ -3,29 +3,27 @@
 namespace App\Controllers;
 
 use App\Models\UserCoins\UserCoin;
-use App\Models\UserCoins\UserCoinCollection;
-use App\Services\CoinFullInfoService;
 use App\Services\SelectedUserCoinGetterService;
 use App\Template;
 
 class TransactionsController
 {
+    private SelectedUserCoinGetterService $selectedUserCoinGetterService;
+
+    public function __construct(SelectedUserCoinGetterService $selectedUserCoinGetterService)
+    {
+        $this->selectedUserCoinGetterService = $selectedUserCoinGetterService;
+    }
+
     public function index(): Template
     {
-        $userCoins = (new SelectedUserCoinGetterService())->execute($_SESSION['id']);
-
-        $ids = $userCoins->getUniqueId();
-
-        $userCoinsInfo = [];
-        foreach ($ids as $id) {
-            $userCoinsInfo[$id] = (new CoinFullInfoService())->execute($id);
-        }
+        $userCoins = ($this->selectedUserCoinGetterService)->execute($_SESSION['id']);
         $userCoins = $userCoins->getAll();
         if (!empty($_GET['search'])) {
             foreach ($userCoins as $key => $userCoin) {
                 /** @var UserCoin $userCoin */
-                if (strpos(strtolower($userCoinsInfo[$userCoin->getId()]->getName()), strtolower($_GET['search'])) === false
-                    && strpos(strtolower($userCoinsInfo[$userCoin->getId()]->getSymbol()), strtolower($_GET['search'])) === false) {
+                if (strpos(strtolower($userCoin->getName()), strtolower($_GET['search'])) === false
+                    && strpos(strtolower($userCoin->getSymbol()), strtolower($_GET['search'])) === false) {
                     unset($userCoins[$key]);
                 }
             }
@@ -33,7 +31,6 @@ class TransactionsController
         return new Template('/Transactions/index.html',
             [
                 'userCoins' => $userCoins,
-                'userCoinsInfo' => $userCoinsInfo,
                 'placehold' => $_GET['search'] ?? null
             ]
         );

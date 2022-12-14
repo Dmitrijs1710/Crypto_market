@@ -3,12 +3,12 @@
 namespace App\Services;
 
 use App\Models\Coin;
-use App\Repositories\CoinsFromApi;
+use App\Repositories\CoinsFromApiRepository;
 
 class CoinFullInfoService
 {
     public function execute(string $id) :Coin
     {
-        return (new CoinsFromApi())->getById($id);
+        return (new CoinsFromApiRepository())->getById($id);
     }
 }

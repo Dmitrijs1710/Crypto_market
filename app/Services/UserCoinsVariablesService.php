@@ -1,12 +1,18 @@
 <?php
 
-namespace App\ViewVariables;
+namespace App\Services;
 
-use App\Services\CoinFullInfoService;
-use App\Services\UserInformationGetterService;
-
-class UserCoinsVariables
+class UserCoinsVariablesService
 {
+    private CoinFullInfoService $coinFullInfoService;
+    private UserInformationGetterService $userInformationGetterService;
+
+    public function __construct(CoinFullInfoService $coinFullInfoService, UserInformationGetterService $userInformationGetterService)
+    {
+        $this->coinFullInfoService = $coinFullInfoService;
+        $this->userInformationGetterService = $userInformationGetterService;
+    }
+
     public function getName(): string
     {
         return 'userCoins';
@@ -15,12 +21,12 @@ class UserCoinsVariables
     public function getValues(): array
     {
         if (!empty($_SESSION['id'])) {
-            $user = (new UserInformationGetterService())->execute($_SESSION['id']);
+            $user = $this->userInformationGetterService->execute($_SESSION['id']);
             $userCoins = [];
             if ($user->getUserCoins()!=null) {
                 foreach ($user->getUserCoins()->getUniqueId() as $id){
                     $userCoinCount=$user->getUserCoins()->getTotalCountById($id);
-                    $coin = (new CoinFullInfoService())->execute($id);
+                    $coin = $this->coinFullInfoService->execute($id);
                     $avg = $user->getUserCoins()->getAverageById($id)/100;
                     if($userCoinCount>0){
                         $userCoins[] = [

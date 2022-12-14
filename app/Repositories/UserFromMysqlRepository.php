@@ -4,10 +4,9 @@ namespace App\Repositories;
 
 use App\Database;
 use App\Models\User;
-use App\Models\UserCoins\UserCoin;
 use App\Models\UserCoins\UserCoinCollection;
 
-class UserFromMysql implements UsersRepository
+class UserFromMysqlRepository implements UsersRepository
 {
 
     public function getUserById(int $id) :?User
