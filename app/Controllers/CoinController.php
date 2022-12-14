@@ -22,12 +22,12 @@ class CoinController
     private UserInformationGetterService $userInformationGetterService;
 
     public function __construct(
-        BuyService $buyService,
-        CoinFullInfoService $coinFullInfoService,
-        CoinsGetterService $coinsGetterService,
+        BuyService                    $buyService,
+        CoinFullInfoService           $coinFullInfoService,
+        CoinsGetterService            $coinsGetterService,
         SelectedUserCoinGetterService $selectedUserCoinGetterService,
-        SellService $sellService,
-        UserInformationGetterService $userInformationGetterService
+        SellService                   $sellService,
+        UserInformationGetterService  $userInformationGetterService
     )
     {
         $this->buyService = $buyService;
@@ -42,21 +42,21 @@ class CoinController
     {
         if ($vars['id'] ?? null) {
             $coin = (new CoinFullInfoService)->execute($vars['id']);
-            if (!empty($_SESSION['id'])){
-                $userCoin=$this->selectedUserCoinGetterService->execute($_SESSION['id']);
-                if($userCoin->getTotalCountById($vars['id'])>0){
+            if (!empty($_SESSION['id'])) {
+                $userCoin = $this->selectedUserCoinGetterService->execute($_SESSION['id']);
+                if ($userCoin->getTotalCountById($vars['id']) > 0) {
                     return new Template('/Coin/coin.html', [
                         'coin' => $coin,
                         'count' => $userCoin->getTotalCountById($vars['id']),
-                        'avg' =>$userCoin->getAverageById($vars['id'])/100,
-                        'income' => $coin->getQuote()->getPrice()-($userCoin->getAverageById($vars['id'])/100),
-                        'buy' =>true,
-                        'sell' =>true,
+                        'avg' => $userCoin->getAverageById($vars['id']) / 100,
+                        'income' => $coin->getQuote()->getPrice() - ($userCoin->getAverageById($vars['id']) / 100),
+                        'buy' => true,
+                        'sell' => true,
                     ]);
                 }
                 return new Template('/Coin/coin.html', [
                     'coin' => $coin,
-                    'buy' =>true
+                    'buy' => true
                 ]);
             }
             return new Template('/Coin/coin.html', [
@@ -79,8 +79,8 @@ class CoinController
     public function buy(array $vars): Redirect
     {
         $userBalance = $this->userInformationGetterService->execute($_SESSION['id'])->getBalance();
-        $coin =$this->coinFullInfoService->execute(intval(($vars['id'])));
-        $coinCost =$coin->getQuote()->getPrice()*100;
+        $coin = $this->coinFullInfoService->execute(intval(($vars['id'])));
+        $coinCost = $coin->getQuote()->getPrice() * 100;
         $coinsCount = $_POST['count'];
         if ($userBalance < $coinCost * $coinsCount) {
             $_SESSION['error']['buy'] = 'Not enough balance';
@@ -109,11 +109,12 @@ class CoinController
         }
         return new Redirect('/coin=' . $vars['id']);
     }
+
     public function sell(array $vars): Redirect
     {
         $user = $this->userInformationGetterService->execute(intval($_SESSION['id']));
-        $coin =$this->coinFullInfoService->execute(intval(($vars['id'])));
-        $coinCost =$coin->getQuote()->getPrice()*100;
+        $coin = $this->coinFullInfoService->execute(intval(($vars['id'])));
+        $coinCost = $coin->getQuote()->getPrice() * 100;
         $coinsCount = $user->getUserCoins()->getTotalCountById(intval($vars['id']));
         if ($coinsCount < floatval($_POST['count'])) {
             $_SESSION['error']['sell'] = 'Not enough coins';

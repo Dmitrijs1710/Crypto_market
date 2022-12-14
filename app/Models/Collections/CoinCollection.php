@@ -10,7 +10,7 @@ class CoinCollection
 
     public function __construct(array $coins = [])
     {
-        foreach ($coins as $coin){
+        foreach ($coins as $coin) {
             $this->add($coin);
         }
     }

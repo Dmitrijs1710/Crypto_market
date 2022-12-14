@@ -16,14 +16,14 @@ class Coin
     private Quote $quote;
 
     public function __construct(
-        int    $id,
-        string $name,
-        string $symbol,
+        int     $id,
+        string  $name,
+        string  $symbol,
         ?int    $cmcRank,
         ?int    $circulatingSupply,
         ?int    $totalSupply,
         ?string $logoUrl,
-        Quote $quote
+        Quote   $quote
     )
     {
 

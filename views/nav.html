@@ -7,8 +7,8 @@
         {% endif %}
     </div>
     {% if login %}
-        <div id="user-welcome-name">Welcome, {{login.name | capitalize}}</div>
-        <div>Balance:{{login.balance | number_format(2,'.')}}$</div>
+    <div id="user-welcome-name">Welcome, {{login.name | capitalize}}</div>
+    <div>Balance:{{login.balance | number_format(2,'.')}}$</div>
     {% endif %}
     <div>
         {% if not login%}

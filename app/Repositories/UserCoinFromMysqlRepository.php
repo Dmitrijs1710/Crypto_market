@@ -22,9 +22,9 @@ class UserCoinFromMysqlRepository implements UserCoinRepository
         $logo = $userCoin->getLogo();
         $name = $userCoin->getName();
         $symbol = $userCoin->getSymbol();
-        $statement->bind_param("ssssssss", $id, $userId, $price, $operation, $count, $logo,$name,$symbol);
+        $statement->bind_param("ssssssss", $id, $userId, $price, $operation, $count, $logo, $name, $symbol);
 
-        return($statement->execute());
+        return ($statement->execute());
     }
 
     public function getCoinCollectionByUserId(int $userId): UserCoinCollection
@@ -35,18 +35,18 @@ class UserCoinFromMysqlRepository implements UserCoinRepository
         $result = $database->query($sql);
         $userCoinCollection = (new UserCoinCollection());
         if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
+            while ($row = $result->fetch_assoc()) {
                 $userCoinCollection->add(
                     new UserCoin(
-                    $row['product_id'],
-                    $row['user_id'],
-                    $row['operation'],
-                    $row['price'],
-                    $row['count'],
-                    $row['logo'],
-                    $row['name'],
-                    $row['symbol']
-                ));
+                        $row['product_id'],
+                        $row['user_id'],
+                        $row['operation'],
+                        $row['price'],
+                        $row['count'],
+                        $row['logo'],
+                        $row['name'],
+                        $row['symbol']
+                    ));
             }
         }
         return $userCoinCollection;

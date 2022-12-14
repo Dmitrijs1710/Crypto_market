@@ -65,7 +65,7 @@ $localVariables = [
 
 foreach ($localVariables as $variable) {
     $variable = $container->get($variable);
-    $twig->addGlobal($variable->getName(),$variable->getValues());
+    $twig->addGlobal($variable->getName(), $variable->getValues());
 }
 
 // Fetch method and URI from somewhere

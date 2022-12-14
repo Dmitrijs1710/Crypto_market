@@ -19,11 +19,11 @@ class BuyService
         $this->userCoinRepository = $userCoinRepository;
     }
 
-    public function execute(int $userId, UserCoin $userCoin, float $newBalance) :bool
+    public function execute(int $userId, UserCoin $userCoin, float $newBalance): bool
     {
 
-        if ($this->userCoinRepository->insertCoin($userCoin)){
-            return ($this->usersRepository->updateUserInformation('balance',strval($newBalance), $userId));
+        if ($this->userCoinRepository->insertCoin($userCoin)) {
+            return ($this->usersRepository->updateUserInformation('balance', strval($newBalance), $userId));
         }
         return false;
     }

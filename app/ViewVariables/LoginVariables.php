@@ -25,7 +25,7 @@ class LoginVariables
             return [
                 'email' => $user->getEMail(),
                 'name' => $user->getName(),
-                'balance' =>$user->getBalance()/100
+                'balance' => $user->getBalance() / 100
             ];
         }
         return [];

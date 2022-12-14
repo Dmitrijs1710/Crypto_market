@@ -9,7 +9,7 @@ use App\Models\UserCoins\UserCoinCollection;
 class UserFromMysqlRepository implements UsersRepository
 {
 
-    public function getUserById(int $id) :?User
+    public function getUserById(int $id): ?User
     {
         $database = Database::getConnection();
         $sql = "SELECT * FROM users WHERE id='" . $id . "'";
@@ -21,7 +21,7 @@ class UserFromMysqlRepository implements UsersRepository
         return null;
     }
 
-    public function insertUser(User $user) :?string
+    public function insertUser(User $user): ?string
     {
         $database = Database::getConnection();
 // Check connection
@@ -40,7 +40,7 @@ class UserFromMysqlRepository implements UsersRepository
         }
     }
 
-    public function updateUserInformation(string $field, string $value, string $id) :bool
+    public function updateUserInformation(string $field, string $value, string $id): bool
     {
         $database = Database::getConnection();
 
@@ -64,6 +64,7 @@ class UserFromMysqlRepository implements UsersRepository
         }
         return null;
     }
+
     public function addUserCoins(int $userId, UserCoinCollection $userCoins): bool
     {
         return false;

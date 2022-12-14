@@ -7,6 +7,7 @@ use App\Models\UserCoins\UserCoinCollection;
 
 interface UserCoinRepository
 {
-    public function insertCoin(UserCoin $userCoin) :bool;
-    public function getCoinCollectionByUserId(int $userId):UserCoinCollection;
+    public function insertCoin(UserCoin $userCoin): bool;
+
+    public function getCoinCollectionByUserId(int $userId): UserCoinCollection;
 }

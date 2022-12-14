@@ -4,17 +4,21 @@ table.coin-table {
     border-collapse: collapse;
     width: 100%;
 }
-.coin-img{
+
+.coin-img {
     max-width: 25px;
 }
+
 table.coin-table td, th {
     border: 1px solid #ddd;
     padding: 8px;
 }
-.coin-table td a{
+
+.coin-table td a {
     text-decoration: none;
-    color:black
+    color: black
 }
+
 table.coin-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
@@ -175,6 +179,7 @@ table.coin-table th {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 /* nav */
 .wrapper {
     max-width: 960px;
@@ -268,6 +273,7 @@ footer div {
     margin-bottom: 20px;
     border: #333 solid 2px;
 }
+
 .sell-form {
     /* Add some padding and a background color to the form container */
     padding: 10px 10px 0px;
@@ -275,6 +281,7 @@ footer div {
     border: #333 solid 2px;
     margin-bottom: 20px;
 }
+
 /* Style the label and input fields */
 label {
     display: block;
@@ -348,6 +355,7 @@ body {
     font-family: sans-serif;
     background-color: #f8f8f8;
 }
+
 .coin-info {
     display: flex;
     flex-direction: column;
@@ -355,22 +363,27 @@ body {
     background-color: #fff;
     padding: 32px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .coin-info > div {
     margin-top: 8px;
 }
+
 .coin-info > div:first-child {
     margin-top: 0;
 }
+
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 label, input[type="submit"] {
     margin-top: 8px;
 }
+
 input[type="submit"] {
     background-color: #333;
     color: #fff;
@@ -380,9 +393,11 @@ input[type="submit"] {
     cursor: pointer;
     transition: all 0.2s;
 }
+
 input[type="submit"]:hover {
     background-color: #555;
 }
+
 .error {
     color: red;
     font-weight: bold;

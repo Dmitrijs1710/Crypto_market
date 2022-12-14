@@ -20,11 +20,11 @@ class MyWalletController
     private UserCoinsVariablesService $coinsVariablesService;
 
     public function __construct(
-        CoinFullInfoService $coinFullInfoService,
-        SellService $sellService,
+        CoinFullInfoService          $coinFullInfoService,
+        SellService                  $sellService,
         UserInformationGetterService $userInformationGetterService,
-        UserDataUpdateService $userDataUpdateService,
-        UserCoinsVariablesService $coinsVariablesService
+        UserDataUpdateService        $userDataUpdateService,
+        UserCoinsVariablesService    $coinsVariablesService
     )
     {
         $this->coinFullInfoService = $coinFullInfoService;
@@ -36,9 +36,9 @@ class MyWalletController
 
     public function index(): Template
     {
-        $variable = $this->coinsVariablesService;
+        $coinVariables = $this->coinsVariablesService;
         return new Template('/MyWallet/index.html', [
-            $variable->getName() => $variable->getValues()
+            'userCoins' => $coinVariables->execute()
         ]);
     }
 
@@ -65,8 +65,8 @@ class MyWalletController
     public function sell(array $vars): Redirect
     {
         $user = $this->userInformationGetterService->execute(intval($_SESSION['id']));
-        $coin =$this->coinFullInfoService->execute(intval(($vars['id'])));
-        $coinCost =$coin->getQuote()->getPrice()*100;
+        $coin = $this->coinFullInfoService->execute(intval(($vars['id'])));
+        $coinCost = $coin->getQuote()->getPrice() * 100;
         $coinsCount = $user->getUserCoins()->getTotalCountById(intval($vars['id']));
         if ($coinsCount < floatval($_POST['count'])) {
             $_SESSION['error'][$vars['id']] = 'Not enough coins';

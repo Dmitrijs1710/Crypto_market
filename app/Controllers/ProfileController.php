@@ -30,8 +30,8 @@ class ProfileController
 
     public function updateData(): Redirect
     {
-        $field=[];
-        $value=[];
+        $field = [];
+        $value = [];
         if ($_POST['name'] != null) {
             Validate::nameChecker($_POST['name']);
             $field[] = 'name';
@@ -43,15 +43,15 @@ class ProfileController
             $field[] = 'password';
             $value[] = $_POST['password'];
 
-        } else if($_POST['password'] != null || $_POST['passwordCurrent'] != null || $_POST['passwordRepeat'] != null){
+        } else if ($_POST['password'] != null || $_POST['passwordCurrent'] != null || $_POST['passwordRepeat'] != null) {
             $_SESSION['error']['password'] = "not enough fields provided";
         }
-        if ($_POST['email'] !=null) {
+        if ($_POST['email'] != null) {
             Validate::emailChecker($_POST['email']);
             $field[] = 'email';
             $value[] = $_POST['email'];
         }
-        if(!empty($field)&& empty($_SESSION['error'])){
+        if (!empty($field) && empty($_SESSION['error'])) {
             ($this->userDataUpdateService)->execute($field, $value, $_SESSION['id']);
         }
 

@@ -14,15 +14,14 @@ class CoinsFromApiRepository implements CoinsRepository
     {
         $coins = new CoinCollection();
         $response = (
-            new ApiClass
-            (
-                'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
-                [
-                    'start' => '1',
-                    'limit' => '10',
-                ],
-                $_ENV['API_KEY']
-            )
+        new ApiClass
+        (
+            'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
+            [
+                'start' => '1',
+                'limit' => '10',
+            ]
+        )
         )->getResponse();
         $response = json_decode($response);
         $id = [];
@@ -30,14 +29,13 @@ class CoinsFromApiRepository implements CoinsRepository
             $id[] = $data->id;
         }
         $responseMetadata = (
-            new ApiClass
-            (
-                'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info',
-                [
-                    'id' => implode(',', $id)
-                ],
-                $_ENV['API_KEY']
-            )
+        new ApiClass
+        (
+            'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info',
+            [
+                'id' => implode(',', $id)
+            ]
+        )
         )->getResponse();
         $responseMetadata = json_decode($responseMetadata);
 
@@ -67,14 +65,13 @@ class CoinsFromApiRepository implements CoinsRepository
     public function getById(int $id): ?Coin
     {
         $response = (
-            new ApiClass
-            (
-                'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest',
-                [
-                    'id' => $id
-                ],
-                $_ENV['API_KEY']
-            )
+        new ApiClass
+        (
+            'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest',
+            [
+                'id' => $id
+            ]
+        )
         )->getResponse();
         $response = json_decode($response);
         $data = null;
@@ -86,13 +83,12 @@ class CoinsFromApiRepository implements CoinsRepository
         }
 
         $responseMetadata = (
-            new ApiClass(
-                'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info',
-                [
-                    'id' => $id
-                ],
-                $_ENV['API_KEY']
-            )
+        new ApiClass(
+            'https://pro-api.coinmarketcap.com/v2/cryptocurrency/info',
+            [
+                'id' => $id
+            ]
+        )
         )->getResponse();
         $responseMetadata = json_decode($responseMetadata);
         return $data == null ? null : (new Coin(
@@ -120,14 +116,13 @@ class CoinsFromApiRepository implements CoinsRepository
         $coins = new CoinCollection();
         $search = strtoupper($search);
         $response = (
-            new ApiClass
-            (
-                'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest',
-                [
-                    'symbol' => $search,
-                ],
-                $_ENV['API_KEY']
-            )
+        new ApiClass
+        (
+            'https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest',
+            [
+                'symbol' => $search,
+            ]
+        )
         )->getResponse();
         $response = json_decode($response, true);
         $id = [];
@@ -135,35 +130,34 @@ class CoinsFromApiRepository implements CoinsRepository
             $id[] = $data['id'];
         }
 
-        if (count($id)>0){
+        if (count($id) > 0) {
             $responseMetadata = (
             new ApiClass('https://pro-api.coinmarketcap.com/v2/cryptocurrency/info',
                 [
                     'id' => implode(',', $id)
-                ],
-                $_ENV['API_KEY']
+                ]
             )
             )->getResponse();
-            $responseMetadata=json_decode($responseMetadata);
+            $responseMetadata = json_decode($responseMetadata);
             foreach ($response['data'][$search] as $data) {
-                    $coins->add(new Coin(
-                        $data['id'],
-                        $data['name'],
-                        $data['symbol'],
-                        $data['cmc_rank'],
-                        $data['circulating_supply'],
-                        $data['total_supply'],
-                        $responseMetadata->data->{$data['id']}->logo,
-                        new Quote(
-                            $data['quote']['USD']['price'],
-                            $data['quote']['USD']['volume_24h'],
-                            $data['quote']['USD']['percent_change_1h'],
-                            $data['quote']['USD']['percent_change_24h'],
-                            $data['quote']['USD']['percent_change_7d'],
-                            $data['quote']['USD']['market_cap'],
-                            $data['quote']['USD']['last_updated']
-                        )
-                    ));
+                $coins->add(new Coin(
+                    $data['id'],
+                    $data['name'],
+                    $data['symbol'],
+                    $data['cmc_rank'],
+                    $data['circulating_supply'],
+                    $data['total_supply'],
+                    $responseMetadata->data->{$data['id']}->logo,
+                    new Quote(
+                        $data['quote']['USD']['price'],
+                        $data['quote']['USD']['volume_24h'],
+                        $data['quote']['USD']['percent_change_1h'],
+                        $data['quote']['USD']['percent_change_24h'],
+                        $data['quote']['USD']['percent_change_7d'],
+                        $data['quote']['USD']['market_cap'],
+                        $data['quote']['USD']['last_updated']
+                    )
+                ));
 
             }
         }

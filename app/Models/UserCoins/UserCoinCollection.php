@@ -39,40 +39,41 @@ class UserCoinCollection
         return $this->userCoins;
     }
 
-    public function getById(int $id) :?array
+    public function getById(int $id): ?array
     {
         $result = [];
         /** @var UserCoin $userCoin */
-        foreach ($this->userCoins as $userCoin){
-            if ($userCoin->getId() == $id){
+        foreach ($this->userCoins as $userCoin) {
+            if ($userCoin->getId() == $id) {
                 $result[] = $userCoin;
             }
         }
-        return count($result)>0 ? $result: null;
+        return count($result) > 0 ? $result : null;
     }
 
-    public function getUniqueId() :array
+    public function getUniqueId(): array
     {
         $result = [];
         /** @var UserCoin $userCoin */
-        foreach ($this->userCoins as $userCoin){
-            if (!in_array($userCoin->getId(),$result)){
+        foreach ($this->userCoins as $userCoin) {
+            if (!in_array($userCoin->getId(), $result)) {
                 $result[] = $userCoin->getId();
             }
         }
         return $result;
     }
-    public function getAverageById(int $id) :float
+
+    public function getAverageById(int $id): float
     {
         $totalSum = 0;
         /** @var UserCoin $userCoin */
-        foreach ($this->getById($id) as $userCoin){
-            if ($userCoin->getOperation()==='BUY'){
-                $totalSum+=$userCoin->getPrice()*$userCoin->getCount();
+        foreach ($this->getById($id) as $userCoin) {
+            if ($userCoin->getOperation() === 'BUY') {
+                $totalSum += $userCoin->getPrice() * $userCoin->getCount();
             } else {
-                $totalSum-=$userCoin->getPrice()*$userCoin->getCount();
+                $totalSum -= $userCoin->getPrice() * $userCoin->getCount();
             }
         }
-        return round($totalSum/$this->getTotalCountById($id));
+        return round($totalSum / $this->getTotalCountById($id));
     }
 }

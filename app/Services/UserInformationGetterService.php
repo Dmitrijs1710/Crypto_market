@@ -21,7 +21,7 @@ class UserInformationGetterService
 
     public function execute(int $id): ?User
     {
-        $user =$this->usersRepository->getUserById($id);
+        $user = $this->usersRepository->getUserById($id);
         $userCoins = $this->userCoinRepository->getCoinCollectionByUserId($id);
         $user->setUserCoins($userCoins);
         return ($user);

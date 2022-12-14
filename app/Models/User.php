@@ -16,12 +16,12 @@ class User
 
     public function __construct
     (
-        string             $eMail,
-        string             $name,
-        int                $balance = 0,
+        string              $eMail,
+        string              $name,
+        int                 $balance = 0,
         ?UserCoinCollection $userCoins = null,
-        ?string $password = null,
-        ?int $id = null
+        ?string             $password = null,
+        ?int                $id = null
     )
     {
         $this->name = $name;

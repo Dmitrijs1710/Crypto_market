@@ -13,27 +13,23 @@ class UserCoinsVariablesService
         $this->userInformationGetterService = $userInformationGetterService;
     }
 
-    public function getName(): string
-    {
-        return 'userCoins';
-    }
 
-    public function getValues(): array
+    public function execute(): array
     {
         if (!empty($_SESSION['id'])) {
             $user = $this->userInformationGetterService->execute($_SESSION['id']);
             $userCoins = [];
-            if ($user->getUserCoins()!=null) {
-                foreach ($user->getUserCoins()->getUniqueId() as $id){
-                    $userCoinCount=$user->getUserCoins()->getTotalCountById($id);
+            if ($user->getUserCoins() != null) {
+                foreach ($user->getUserCoins()->getUniqueId() as $id) {
+                    $userCoinCount = $user->getUserCoins()->getTotalCountById($id);
                     $coin = $this->coinFullInfoService->execute($id);
-                    $avg = $user->getUserCoins()->getAverageById($id)/100;
-                    if($userCoinCount>0){
+                    $avg = $user->getUserCoins()->getAverageById($id) / 100;
+                    if ($userCoinCount > 0) {
                         $userCoins[] = [
-                            'count' =>$userCoinCount,
+                            'count' => $userCoinCount,
                             'coin' => $coin,
                             'avg' => $avg,
-                            'income' => $coin->getQuote()->getPrice()-$avg
+                            'income' => $coin->getQuote()->getPrice() - $avg
                         ];
                     }
                 }
@@ -42,7 +38,7 @@ class UserCoinsVariablesService
                 'name' => $user->getName(),
                 'email' => $user->getEMail(),
                 'coins' => $userCoins,
-                'userBalance' => $user->getBalance()/100,
+                'userBalance' => $user->getBalance() / 100,
             ];
         }
         return [];

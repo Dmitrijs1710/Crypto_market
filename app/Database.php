@@ -8,9 +8,9 @@ class Database
 {
     private static ?mysqli $connection = null;
 
-    public static function getConnection() :mysqli
+    public static function getConnection(): mysqli
     {
-        if (self::$connection===null){
+        if (self::$connection === null) {
             $databaseServername = $_ENV['DB_ADDRESS'];
             $databaseUsername = $_ENV['DB_USERNAME'];
             $databasePassword = $_ENV['DB_PASSWORD'];

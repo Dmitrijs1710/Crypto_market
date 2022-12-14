@@ -20,4 +20,5 @@ Packages used:
 
 "php-di/php-di": "^6.4"
 
-Don't forget to initialize your mysql server and .env file from .env-example(CoinMarketCap api and mysql database needed).
+Don't forget to initialize your mysql server and .env file from .env-example(CoinMarketCap api and mysql database
+needed).

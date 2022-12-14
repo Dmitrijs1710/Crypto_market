@@ -4,13 +4,14 @@ namespace App;
 
 class Validate
 {
-    public static function passwordMatch(string $password1, string $password2) :void
+    public static function passwordMatch(string $password1, string $password2): void
     {
         if ($password1 !== $password2) {
             $_SESSION['error']['passwordRepeat'] = 'Passwords do not match';
         }
     }
-    public static function passwordChecker(string $password) :void
+
+    public static function passwordChecker(string $password): void
     {
         $passwordPattern = '/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/';
         if (!preg_match($passwordPattern, $password)) {

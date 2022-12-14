@@ -20,7 +20,8 @@ class Quote
         ?float $percentChange7d,
         ?float $marketCap,
         string $lastUpdated
-    ){
+    )
+    {
 
         $this->price = $price;
         $this->volume24h = $volume24h;

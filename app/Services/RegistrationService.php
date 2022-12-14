@@ -23,7 +23,7 @@ class RegistrationService
             return false;
         }
         $response = $this->usersRepository->insertUser($user);
-        if ( $response !=null) {
+        if ($response != null) {
             $_SESSION['id'] = $response;
             return true;
 

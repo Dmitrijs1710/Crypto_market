@@ -11,14 +11,15 @@ class ApiClass
     private string $apiKey;
 
 
-    public function __construct(string $url, array $parameters, string $apiKey)
+    public function __construct(string $url, array $parameters)
     {
         $this->url = $url;
         $this->parameters = $parameters;
 
-        $this->apiKey = $apiKey;
+        $this->apiKey = $_ENV['API_KEY'];
     }
-    public function getResponse() :?string
+
+    public function getResponse(): ?string
     {
         $headers = [
             'Accepts: application/json',
@@ -35,7 +36,7 @@ class ApiClass
             CURLOPT_HTTPHEADER => $headers,     // set the headers
             CURLOPT_RETURNTRANSFER => 1         // ask for raw response instead of bool
         ));
-        $response =curl_exec($curl);
-        return $response!==false ? $response : null; // Send the request, save the response
+        $response = curl_exec($curl);
+        return $response !== false ? $response : null; // Send the request, save the response
     }
 }

@@ -16,9 +16,9 @@ class CoinsGetterService
         $this->coinsRepository = $coinsRepository;
     }
 
-    public function execute(string $search = '') :CoinCollection
+    public function execute(string $search = ''): CoinCollection
     {
-        if ($search!==''){
+        if ($search !== '') {
             return ($this->coinsRepository->search($search));
         }
         return ($this->coinsRepository->getFirstTen());
