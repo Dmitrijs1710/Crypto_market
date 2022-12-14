@@ -24,7 +24,10 @@
                 <div>AVG Price:</div>
                 <div>{{item.avg | number_format(2,'.')}} $</div>
             </div>
-            <div class="user-coin-count">{{item.count | e}}</div>
+            <div class="user-coin-count">
+                <div>Coins in wallet:</div>
+                <div>{{item.count | e}}</div>
+            </div>
         </div>
         <form class="sell-form" method="post" action="/wallet/token={{item.coin.id | e('url')}}">
             <label for="input-token">Profit selling 1 coin: {{item.income | number_format(2,'.')}} $</label>
