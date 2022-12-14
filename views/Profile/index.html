@@ -1,0 +1,35 @@
+{% include 'header.html' %}
+{% include 'nav.html' %}
+
+<main class="profile">
+    <form id="name-form" action="/profile" method="post">
+        <div id="profile-name">
+            <label for="name"><b>Name</b></label>
+            <input type="text" placeholder="{{ login.name }}" name="name" id="name">
+        </div>
+        <div id="profile-email">
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="{{ login.email }}" name="email" id="email">
+            {{error.email}}
+        </div>
+        <div id="profile-password">
+            <label for="passwordCurrent"><b>Current Password</b></label>
+            <input type="password" placeholder="Enter Password" name="passwordCurrent" id="passwordCurrent">
+            {{error.currentPassword}}
+            <br>
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter New Password" name="password" id="password">
+            {{error.password}}
+            <br>
+            <label for="passwordRepeat"><b>Repeat Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="passwordRepeat" id="passwordRepeat">
+            {{error.passwordRepeat}}
+            <br>
+            <br>
+            <button type="submit" class="submit-button">Update Changes</button>
+            <br>
+        </div>
+    </form>
+
+</main>
+{% include 'footer.html' %}

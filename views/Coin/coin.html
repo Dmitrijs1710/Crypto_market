@@ -1,0 +1,53 @@
+{% include 'header.html' %}
+{% include 'nav.html' %}
+
+<main class="article-content">
+    <div class="user-coin-container">
+        <div class="coin-info">
+            <img class="coin-img" src="{{coin.logoUrl}}" alt="coin-img">
+            <div>Name: {{coin.name}}</div>
+            <div>Symbol: {{coin.symbol}}</div>
+            <div>Rank: {{coin.cmcRank}}</div>
+            <div>Circulating Supply: {{coin.circulatingSupply}}</div>
+            <div>Total Supply: {{coin.TotalSupply}}</div>
+            <div>Price: {{coin.quote.price | round(2,'common')}}$</div>
+            <div>Volume 24h: {{coin.quote.volume24h}}</div>
+            <div>Percent Change 1h: {{coin.quote.percentChange1h | round(2,'common')}}%</div>
+            <div>Percent Change 24h: {{coin.quote.percentChange24h | round(2,'common')}}%</div>
+            <div>Percent Change 7d: {{coin.quote.percentChange7d | round(2,'common')}}%</div>
+            <div>Market Cap: {{coin.quote.marketCap | round(2,'common')}}$</div>
+            <div>Last Updated: {{coin.quote.lastUpdated | date}}</div>
+        </div>
+        {% if buy %}
+        <div class="coin-info">
+            <div>Your Balance: {{login.balance | number_format(2,'.')}}$</div>
+            <br>
+            {%if sell %}
+            <div>Your Coin</div>
+            <div>Average Price: {{avg}}$</div>
+            <div>Coins in Wallet: {{count}}</div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {%if buy %}
+        <div class="buy-sell-forms">
+            <form method="post" action="/coin={{coin.id | e('url')}}/buy">
+                <label for="input-number">Profit if buy 1 coin: {{(income * -1) | round(2,'common')}}$</label>
+                <input name="count" id="input-number" type="number" step="0.00001" placeholder="{{(error.buy)}}">
+                <input type="submit" value="Buy">
+            </form>
+            {%if sell%}
+            <form method="post" action="/coin={{coin.id | e('url')}}/sell">
+                <label for="input-token">Profit if sell 1 coin: {{income | round(2,'common')}}$</label>
+                <input id="input-token" name="count" type="number" step="0.00000001"
+                       placeholder="{{(error.sell)}}">
+                <input type="submit" value="Sell">
+            </form>
+            {%endif%}
+        </div>
+        {% endif %}
+
+    </div>
+
+</main>
+{% include 'footer.html' %}

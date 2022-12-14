@@ -1,0 +1,389 @@
+/*table*/
+table.coin-table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.coin-img{
+    max-width: 25px;
+}
+table.coin-table td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.coin-table td a{
+    text-decoration: none;
+    color:black
+}
+table.coin-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table.coin-table tr:hover {
+    background-color: #ddd;
+}
+
+table.coin-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+/*login form*/
+#login-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+#login-form .container {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#login-form input[type="text"],
+#login-form input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#login-form button.register-button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#login-form button:hover {
+    background-color: #45a049;
+}
+
+#login-form div {
+    margin-bottom: 10px;
+}
+
+/* registration form */
+
+#registration-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+#registration-form h1 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#registration-form p {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#registration-form #registration-form-container-1 {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#registration-form input[type="text"],
+#registration-form input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#registration-form button.nav-element-2 {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#registration-form button:hover {
+    background-color: #45a049;
+}
+
+#registration-form div {
+    margin-bottom: 10px;
+}
+
+/* profile change form */
+#name-form {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+#name-form input[type="text"],
+#name-form input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+#name-form .submit-button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#name-form button:hover {
+    background-color: #45a049;
+}
+
+#name-form div {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+/* nav */
+.wrapper {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.2s ease-in-out;
+}
+
+nav a:hover {
+    color: #00b0ff;
+}
+
+.nav-button {
+    background-color: #00b0ff;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+    background-color: #333;
+}
+
+.nav-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.article-content {
+    padding: 20px;
+}
+
+.message {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #00b0ff;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+footer div {
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+
+/* my wallet */
+
+.user-coin-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
+    margin: 20px 0;
+}
+
+.user-coin {
+    display: flex;
+    align-items: center;
+    width: 65%;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 20px;
+    border: #333 solid 2px;
+}
+.sell-form {
+    /* Add some padding and a background color to the form container */
+    padding: 10px 10px 0px;
+    background-color: #f0f0f0;
+    border: #333 solid 2px;
+    margin-bottom: 20px;
+}
+/* Style the label and input fields */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+input[type="number"] {
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+.user-coin-img {
+    width: 64px;
+    height: 64px;
+    margin-right: 20px;
+}
+
+.user-coin-name {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.user-coin-symbol {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.user-coin-current-price {
+    font-size: 16px;
+    font-family: sans-serif;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.user-coin-count {
+    font-size: 16px;
+    font-family: sans-serif;
+    margin-left: auto;
+}
+
+.user-balance {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #333;
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+/* coin */
+
+body {
+    font-family: sans-serif;
+    background-color: #f8f8f8;
+}
+.coin-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.coin-info > div {
+    margin-top: 8px;
+}
+.coin-info > div:first-child {
+    margin-top: 0;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+label, input[type="submit"] {
+    margin-top: 8px;
+}
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+input[type="submit"]:hover {
+    background-color: #555;
+}
+.error {
+    color: red;
+    font-weight: bold;
+}

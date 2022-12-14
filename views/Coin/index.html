@@ -1,0 +1,36 @@
+{% include 'header.html' %}
+{% include 'nav.html' %}
+
+<main class="article-content">
+    <form method="get">
+        <label for="input-search"></label><input type="search" value="{{placehold}}" id="input-search" name="search">
+        <input type="submit" value="Search">
+    </form>
+    <table class="coin-table">
+        <thead>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Rank</th>
+            <th>Circulating Supply</th>
+            <th>Total Supply</th>
+            <th>Price</th>
+            <th>Percent Change 1h</th>
+        </thead>
+        <tbody>
+            {% for coin in coins %}
+                <tr>
+                    <td><a href="/coin={{coin.id}}"><img class='coin-img' src="{{coin.getLogoUrl}}">
+                    {{coin.getName}}</a></td>
+                    <td>{{coin.getSymbol}}</td>
+                    <td>{{coin.getCmcRank}}</td>
+                    <td>{{coin.getCirculatingSupply}}</td>
+                    <td>{{coin.getTotalSupply}}</td>
+                    <td>{{coin.getQuote.price | round(2,'floor')}} $</td>
+                    <td>{{coin.getQuote.percentChange1h | round(2,'floor')}} %</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</main>
+{% include 'footer.html' %}
