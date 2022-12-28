@@ -1,0 +1,133 @@
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
+<main class="article-content">
+
+    <div class="buy-sell-forms">
+        <div class="buy-sell-form">Your Balance: {{ login.balance | number_format(2,'.') }} $</div>
+        <form method="post" action="/wallet" class="buy-sell-form">
+            <label for="input-number"></label><input name="deposit" id="input-number" type="number" step="0.01" placeholder="Input deposit amount">
+            <button type="submit" class="submit-button">Deposit</button>
+            {{ error.balance }}
+        </form>
+    </div>
+    {% if userCoins.coins is not empty %}
+    <h1>Your Coins in Wallet</h1>
+    <table class="coin-table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Current Price</th>
+            <th>Average Price</th>
+            <th>Coins in Wallet</th>
+            {% if sellForm or sendForm %}
+                <th colspan="2">Actions</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in userCoins.coins %}
+
+        <tr class="user-coin">
+
+            <td>
+                <a href="wallet/coin={{ item.coin.id }}">
+                    <img class="user-coin-img" src="{{ item.coin.getLogoUrl | e }}" alt="coin-img">
+                </a>
+            </td>
+            <td class="user-coin-symbol">
+                <a href="wallet/coin={{ item.coin.id }}">{{ item.coin.getSymbol | e }}
+                </a></td>
+            <td class="user-coin-name">
+                <a href="wallet/coin={{ item.coin.id }}">{{ item.coin.getName }}
+                </a></td>
+            <td class="user-coin-current-price">{{ item.coin.quote.price | number_format(2,'.') }} $</td>
+            <td class="user-coin-current-price">{{ item.avg | number_format(2,'.') }} $</td>
+            <td class="user-coin-count">{{ item.count | e }}</td>
+
+            {% if sellForm or sendForm %}
+                <td>
+                    <div class="coin-container">
+                        <button id="sell" class="submit-button">Sell</button>
+                        <button id="send" class="submit-button">Send</button>
+                    </div>
+
+                    <div class="buy-sell-forms">
+                        {% if sellForm %}
+
+                            <form id="sell-form" class="buy-sell-form" method="post"
+                                  action="/wallet/sell={{ item.coin.id | e('url') }}">
+                                <label for="input-token">
+                                    <b>Profit selling 1 coin:</b>
+                                    <br>
+                                    {{ item.income | number_format(2,'.') }} $
+                                </label>
+
+                                <input id="input-token" name="count" type="number" step="0.00000001"
+                                       placeholder="{{ attribute(error,item.coin.id) }}">
+                                <button type="submit" class="submit-button">Sell</button>
+                            </form>
+                        {% endif %}
+                        {% if sendForm %}
+
+                            <form id="send-form" class="buy-sell-form" action="/wallet/send={{ item.coin.id }}" method="post">
+                                <label for="amount">Amount to send:</label><br>
+                                <input type="number" id="amount" step="0.00000001" name="amount"><br>
+                                <label for="email">Email of person to send to:</label><br>
+                                <input type="email" id="email" name="email"><br>
+                                <label for="password">Your password:</label><br>
+                                <input type="password" id="password" name="password"><br><br>
+                                {{ error.password }}
+                                <button type="submit" class="submit-button">Send</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </td>
+
+                <script type="text/javascript" src="/views/assets/js/popup-forms.js"></script>
+            {% endif %}
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    {% endif %}
+    {% if userCoins.shorts is not empty %}
+        <h1>Your Shorts:</h1>
+        <table class="coin-table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Current Price</th>
+                <th>Open Price</th>
+                <th>Coins in Wallet</th>
+                <th>Close</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in userCoins.shorts %}
+                <tr class="user-coin">
+                    <td><img class="user-coin-img" src="{{ item.coin.getLogoUrl | e }}" alt="coin-img"></td>
+                    <td class="user-coin-symbol">{{ item.coin.getSymbol | e }}</td>
+                    <td class="user-coin-name">{{ item.coin.getName }}</td>
+                    <td class="user-coin-current-price">{{ item.coin.quote.price | number_format(2,'.') }} $</td>
+                    <td class="user-coin-current-price">{{ item.avg | number_format(2,'.') }} $</td>
+                    <td class="user-coin-count">{{ item.count | e }}</td>
+                    <td>
+                        <form class="buy-sell-form" action="/wallet/close={{ item.uniqueId }}" method="post">
+                            <p>Profit on close: {{ (item.income * item.count * -1) | number_format(2,'.') }} $</p>
+                            <input type="submit" value="Close" class="submit-button">
+                            {{ error.close }}
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</main>
+{% include 'footer.twig' %}

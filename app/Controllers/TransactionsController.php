@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserCoins\UserCoin;
+use App\Models\UserCoin;
 use App\Services\SelectedUserCoinGetterService;
 use App\Template;
 
@@ -23,12 +23,14 @@ class TransactionsController
             foreach ($userCoins as $key => $userCoin) {
                 /** @var UserCoin $userCoin */
                 if (strpos(strtolower($userCoin->getName()), strtolower($_GET['search'])) === false
-                    && strpos(strtolower($userCoin->getSymbol()), strtolower($_GET['search'])) === false) {
+                    && strpos(strtolower($userCoin->getSymbol()), strtolower($_GET['search'])) === false
+                    && strpos(strtolower($userCoin->getUserCoinTransaction()->getOperationType()),strtolower($_GET['search']))===false
+                ) {
                     unset($userCoins[$key]);
                 }
             }
         }
-        return new Template('/Transactions/index.html',
+        return new Template('/Transactions/index.twig',
             [
                 'userCoins' => $userCoins,
                 'placehold' => $_GET['search'] ?? null

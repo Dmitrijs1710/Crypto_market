@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use App\Database;
+use App\Models\Collections\UserCoinCollection;
 use App\Models\User;
-use App\Models\UserCoins\UserCoinCollection;
 
 class UserFromMysqlRepository implements UsersRepository
 {
@@ -16,7 +16,7 @@ class UserFromMysqlRepository implements UsersRepository
         $result = $database->query($sql);
         if ($result->num_rows === 1) {
             $data = $result->fetch_assoc();
-            return new User($data['email'], $data['name'], $data['balance'], null, $data['id']);
+            return new User($data['email'], $data['name'], $data['balance'], null, $data['password'] , $data['id']);
         }
         return null;
     }

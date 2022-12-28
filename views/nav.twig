@@ -1,0 +1,27 @@
+<nav class="menu">
+    <ul class="main-menu">
+        <li><a class="nav-button" href="/">Home</a></li>
+        {% if login %}
+            <li><a class="nav-button" href="/wallet">My Wallet</a></li>
+            <li><a class="nav-button" href="/transactions">Transactions</a></li>
+        {% endif %}
+    </ul>
+    {% if login %}
+    <ul class="user-info">
+        <li id="user-welcome-name">Welcome, {{ login.name | capitalize }}</li>
+        <li id="user-balance">{{ login.balance | number_format(2,'.') }}$</li>
+    </ul>
+    {% endif %}
+    <ul class="login-menu">
+        {% if not login %}
+            <li><a class="nav-button" href="/login">Login</a></li>
+            <li><a class="nav-button" href="/registration">Registration</a></li>
+        {% endif %}
+        {% if login %}
+            <li><a class="nav-button" href="/profile">Profile</a></li>
+            <li><a class="nav-button" href="/logout">Logout</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+

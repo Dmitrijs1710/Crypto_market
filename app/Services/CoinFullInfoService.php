@@ -7,7 +7,7 @@ use App\Repositories\CoinsFromApiRepository;
 
 class CoinFullInfoService
 {
-    public function execute(string $id): Coin
+    public function execute(string $id): ?Coin
     {
         return (new CoinsFromApiRepository())->getById($id);
     }

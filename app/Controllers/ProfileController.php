@@ -24,7 +24,7 @@ class ProfileController
             header("Location: /login");
             exit();
         }
-        return new Template('/Profile/index.html', [
+        return new Template('/Profile/index.twig', [
         ]);
     }
 
@@ -53,6 +53,7 @@ class ProfileController
         }
         if (!empty($field) && empty($_SESSION['error'])) {
             ($this->userDataUpdateService)->execute($field, $value, $_SESSION['id']);
+            $_SESSION['popup'] = "Profile updated successful";
         }
 
         return new Redirect('/profile');

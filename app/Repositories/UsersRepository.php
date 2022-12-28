@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Models\Collections\UserCoinCollection;
 use App\Models\User;
-use App\Models\UserCoins\UserCoin;
-use App\Models\UserCoins\UserCoinCollection;
 
 interface UsersRepository
 {

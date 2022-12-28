@@ -1,4 +1,17 @@
-/*table*/
+body{
+    background-image: url("/views/assets/img/background.webp.png");
+}
+.article-content{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.wrapper{
+    padding-right: 5%;
+    padding-left: 5%;
+    display: flex;
+    flex-direction: column;
+}
 table.coin-table {
     font-family: Arial, sans-serif;
     border-collapse: collapse;
@@ -12,393 +25,231 @@ table.coin-table {
 table.coin-table td, th {
     border: 1px solid #ddd;
     padding: 8px;
+    color: navajowhite;
 }
 
 .coin-table td a {
     text-decoration: none;
-    color: black
+    color: navajowhite;
 }
 
-table.coin-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
 
 table.coin-table tr:hover {
-    background-color: #ddd;
+    background-color: navy;
 }
 
 table.coin-table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #4CAF50;
+    background-color: maroon;
     color: white;
 }
-
-/*login form*/
-#login-form {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-}
-
-#login-form .container {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#login-form input[type="text"],
-#login-form input[type="password"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-#login-form button.register-button {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#login-form button:hover {
-    background-color: #45a049;
-}
-
-#login-form div {
-    margin-bottom: 10px;
-}
-
-/* registration form */
-
-#registration-form {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-}
-
-#registration-form h1 {
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-#registration-form p {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#registration-form #registration-form-container-1 {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#registration-form input[type="text"],
-#registration-form input[type="password"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-#registration-form button.nav-element-2 {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#registration-form button:hover {
-    background-color: #45a049;
-}
-
-#registration-form div {
-    margin-bottom: 10px;
-}
-
-/* profile change form */
-#name-form {
-    width: 100%;
-    max-width: 330px;
-    padding: 15px;
-    margin: auto;
-}
-
-#name-form input[type="text"],
-#name-form input[type="password"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-#name-form .submit-button {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#name-form button:hover {
-    background-color: #45a049;
-}
-
-#name-form div {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* nav */
-.wrapper {
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-nav {
+/* nav-menu */
+.menu {
+    border-bottom: 1px solid #ddd;
+    color: darkgray;
     display: flex;
     justify-content: space-between;
+}
+
+.main-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
     align-items: center;
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
 }
 
-nav a {
-    text-decoration: none;
-    color: #fff;
-    transition: color 0.2s ease-in-out;
+.user-info{
+   list-style: none;
 }
-
-nav a:hover {
-    color: #00b0ff;
+.user-info{
+    color: navajowhite;
 }
-
 .nav-button {
-    background-color: #00b0ff;
-    border: none;
-    color: #fff;
-    padding: 8px 16px;
-    margin-left: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: darkgray;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .nav-button:hover {
-    background-color: #333;
+    background-color: #eee;
+    color: #000;
 }
 
-.nav-logo {
-    font-size: 24px;
+.login-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#user-welcome-name {
+    margin-right: 20px;
     font-weight: bold;
+}
+
+#user-balance {
     margin-right: 20px;
 }
-
-.article-content {
-    padding: 20px;
-}
-
-.message {
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #00b0ff;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
+/*search bar*/
+.search-bar{
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+.input-search{
+    height: 36px;
+    font-size: 20px;
+    color: navajowhite;
+    background: transparent;
+    border: 2px solid maroon;
+    border-radius: 5px 0 0 5px;
+}
+.search-button{
+    width: 40px;
+    height: 36px;
+    border: 2px solid maroon;
+    background: transparent;
+    text-align: center;
+    color: navajowhite;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
 }
 
-footer div {
-    font-size: 14px;
-    font-family: sans-serif;
-    font-weight: bold;
-    margin-right: 20px;
-}
-
-
-/* my wallet */
-
-.user-coin-container {
+.login-container{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: stretch;
-    margin: 20px 0;
+    flex-direction: row;
+    justify-content: center;
 }
-
-.user-coin {
+.login-form{
+    color: navajowhite;
+}
+.login{
+    padding:5px;
     display: flex;
-    align-items: center;
-    width: 65%;
+    flex-direction: column;
+
+}
+.login a{
+    text-decoration: none;
+    color:navajowhite;
+}
+.login a:hover{
+    background-color: darkgray;
+    color: black;
+}
+.psw{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+}
+.submit-button{
+    margin-top: 10px;
+    width:100%;
+    height:36px;
+    border:none;
+    border-radius:5px;
+    font-size:17px;
+    font-weight:600;
+    color:navajowhite;
+    background-color:maroon;
+    cursor:pointer;
+}
+
+
+.submit-button:hover{
+
+    background-color:#1859c9db;
+}
+
+/* buy send sell short */
+.buy-sell-forms{
+    display: flex;
+    flex-direction: row;
+    color: navajowhite;
+}
+.buy-sell-form{
+    display: flex;
+    flex-direction: column;
+    background: #242425;
+    padding: 15px;
+    height: fit-content;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+.buy-sell-form input{
+    background: #242425;
+    border: 2px solid maroon;
+    color: navajowhite;
+    border-radius: 10px;
+    min-height: 36px;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.user-coin-container{
+    display: flex;
+    flex-direction: column;
+
+}
+.coin-container{
+    display: flex;
+    flex-direction: row;
+}
+.coin-info{
+    background: #242425;
     padding: 20px;
-    background-color: #333;
-    color: #fff;
-    margin-bottom: 20px;
-    border: #333 solid 2px;
+    border-radius: 10px;
+    margin: 15px;
+    color: navajowhite;
 }
-
-.sell-form {
-    /* Add some padding and a background color to the form container */
-    padding: 10px 10px 0px;
-    background-color: #f0f0f0;
-    border: #333 solid 2px;
-    margin-bottom: 20px;
+.coin-img-full{
+    max-width: 50px;
+    max-height: 50px;
 }
-
-/* Style the label and input fields */
-label {
-    display: block;
+h1{
+    color: navajowhite;
+    text-align: center;
+}
+footer {
+    text-align: center;
+    color: navajowhite;
+    margin-top: 25px;
+}
+#popup{
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: grey;
+    color: navajowhite;
+    width: fit-content;
+    border-radius: 20px;
+    padding: 10px;
+}
+.popup-message{
+    font-size: 20px;
     margin-bottom: 5px;
 }
 
-
-input[type="number"] {
-    width: 100%;
-    height: 30px;
-    font-size: 14px;
-    padding: 0 10px;
-    box-sizing: border-box;
+#send-form{
+    display: none;
 }
-
-input[type="submit"] {
-    height: 30px;
-    font-size: 14px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    cursor: pointer;
+#sell-form{
+    display: none;
+}
+#sell{
+    margin-right: 2px;
 }
 
 
-.user-coin-img {
-    width: 64px;
-    height: 64px;
-    margin-right: 20px;
-}
-
-.user-coin-name {
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: bold;
-    margin-right: 20px;
-}
-
-.user-coin-symbol {
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: bold;
-    margin-right: 20px;
-}
-
-.user-coin-current-price {
-    font-size: 16px;
-    font-family: sans-serif;
-    margin-left: auto;
-    margin-right: 20px;
-}
-
-.user-coin-count {
-    font-size: 16px;
-    font-family: sans-serif;
-    margin-left: auto;
-}
-
-.user-balance {
-    font-size: 18px;
-    font-family: sans-serif;
-    font-weight: bold;
-    color: #333;
-    padding: 20px;
-    background-color: #fff;
-    text-align: center;
-}
-
-/* coin */
-
-body {
-    font-family: sans-serif;
-    background-color: #f8f8f8;
-}
-
-.coin-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #fff;
-    padding: 32px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.coin-info > div {
-    margin-top: 8px;
-}
-
-.coin-info > div:first-child {
-    margin-top: 0;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label, input[type="submit"] {
-    margin-top: 8px;
-}
-
-input[type="submit"] {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-input[type="submit"]:hover {
-    background-color: #555;
-}
-
-.error {
-    color: red;
-    font-weight: bold;
-}

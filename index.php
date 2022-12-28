@@ -7,6 +7,9 @@ use App\Redirect;
 use App\Template;
 use App\ViewVariables\ErrorVariables;
 use App\ViewVariables\LoginVariables;
+use App\ViewVariables\PopupVariables;
+use DI\DependencyException;
+use DI\NotFoundException;
 use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -37,9 +40,12 @@ $container->set(
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $r->addRoute('GET', '/', ['\App\Controllers\CoinController', 'index']);
     $r->addRoute('GET', '/wallet', ['\App\Controllers\MyWalletController', 'index']);
-    $r->addRoute('GET', '/wallet/successful', ['\App\Controllers\MyWalletController', 'success']);
-    $r->addRoute('POST', '/wallet/token={id}', ['\App\Controllers\MyWalletController', 'sell']);
+    $r->addRoute('POST', '/wallet/sell={id}', ['\App\Controllers\MyWalletController', 'sell']);
+    $r->addRoute('POST', '/wallet/coin={id}/sellshort', ['\App\Controllers\MyWalletController', 'sellShort']);
+    $r->addRoute('POST', '/wallet/close={id}', ['\App\Controllers\MyWalletController', 'closeShort']);
     $r->addRoute('POST', '/wallet', ['\App\Controllers\MyWalletController', 'deposit']);
+    $r->addRoute('GET', '/wallet/coin={id}', ['\App\Controllers\MyWalletController', 'index']);
+    $r->addRoute('POST', '/wallet/send={id}', ['\App\Controllers\MyWalletController', 'send']);
     $r->addRoute('GET', '/transactions', ['\App\Controllers\TransactionsController', 'index']);
     $r->addRoute('GET', '/coin={id}', ['\App\Controllers\CoinController', 'index']);
     $r->addRoute('POST', '/coin={id}/buy', ['\App\Controllers\CoinController', 'buy']);
@@ -51,8 +57,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/logout', ['\App\Controllers\UserLoginController', 'logoutHandler']);
     $r->addRoute('GET', '/profile', ['\App\Controllers\ProfileController', 'index']);
     $r->addRoute('POST', '/profile', ['\App\Controllers\ProfileController', 'updateData']);
-    $r->addRoute('GET', '/registration/successful', ['\App\Controllers\RegistrationController', 'registeredHandler']);
-    $r->addRoute('GET', '/login/successful', ['\App\Controllers\UserLoginController', 'successful']);
+
 
 });
 $loader = new FilesystemLoader('views/');
@@ -61,10 +66,15 @@ $twig = new Environment($loader, []);
 $localVariables = [
     LoginVariables::class,
     ErrorVariables::class,
+    PopupVariables::class
 ];
 
 foreach ($localVariables as $variable) {
-    $variable = $container->get($variable);
+    try {
+        $variable = $container->get($variable);
+    } catch (DependencyException|NotFoundException $e) {
+        echo $e->getMessage();
+    }
     $twig->addGlobal($variable->getName(), $variable->getValues());
 }
 
@@ -89,12 +99,18 @@ switch ($routeInfo[0]) {
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
         [$controller, $method] = $handler;
-        $response = $container->get($controller)->{$method}($vars);
+        try {
+            $response = $container->get($controller)->{$method}($vars);
+        } catch (DependencyException|NotFoundException $e) {
+            echo $e->getMessage();
+            $response=null;
+        }
 
         if ($response instanceof Template) {
             try {
                 echo $twig->render($response->getLink(), $response->getProperties());
                 unset($_SESSION['error']);
+                unset($_SESSION['popup']);
             } catch (LoaderError|RuntimeError|SyntaxError $e) {
                 echo($e->getMessage());
             }

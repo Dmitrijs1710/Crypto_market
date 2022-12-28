@@ -23,6 +23,7 @@ class LoginVariables
         if (!empty($_SESSION['id'])) {
             $user = $this->userInformationGetterService->execute($_SESSION['id']);
             return [
+                'id' => $user->getId(),
                 'email' => $user->getEMail(),
                 'name' => $user->getName(),
                 'balance' => $user->getBalance() / 100

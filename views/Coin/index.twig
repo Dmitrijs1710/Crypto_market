@@ -1,10 +1,15 @@
-{% include 'header.html' %}
-{% include 'nav.html' %}
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
 
 <main class="article-content">
-    <form method="get">
-        <label for="input-search"></label><input type="search" value="{{placehold}}" id="input-search" name="search">
-        <input type="submit" value="Search">
+    <form method="get" class="search-bar" action="/">
+        <label>
+            <input type="search" value="{{placehold}}" class="input-search" name="search">
+        </label>
+        <button class="search-button" type="submit" value="Search">
+            <i class="fa fa-search">
+            </i>
+        </button>
     </form>
     <table class="coin-table">
         <thead>
@@ -33,4 +38,4 @@
     </table>
 
 </main>
-{% include 'footer.html' %}
+{% include 'footer.twig' %}

@@ -1,0 +1,50 @@
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
+
+<main class="article-content">
+    <div class="login-container">
+        <form class="login-form"
+        " action="/registration" method="post">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter name" name="name" class="login" required>
+        {% if error.name %}
+            <div class="error">
+                {{ error.name }}
+            </div>
+        {% endif %}
+        <br>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" class="login" required>
+        {% if error.email %}
+            <div class="error">
+                {{ error.email }}
+            </div>
+        {% endif %}
+        <br>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" class="psw" required>
+        {% if error.password %}
+            <div class="error">
+                {{ error.password }}
+            </div>
+        {% endif %}
+        <br>
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" name="passwordRepeat" class="psw" required>
+        {% if error.passwordRepeat %}
+            <div class="error">
+                {{ error.passwordRepeat }}
+            </div>
+        {% endif %}
+        <br>
+        <button type="submit" class="submit-button">Register</button>
+
+        <div class="login">
+            <p>Already have an account? <a href="/login">Sign in</a>.</p>
+        </div>
+        </form>
+    </div>
+</main>
+{% include 'footer.twig' %}

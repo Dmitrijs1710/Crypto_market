@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\UserCoins\UserCoinCollection;
-
+use App\Models\Collections\UserCoinCollection;
 use App\Repositories\UserCoinRepository;
 
 class SelectedUserCoinGetterService

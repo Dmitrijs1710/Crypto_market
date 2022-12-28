@@ -1,0 +1,22 @@
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
+<main class="article-content">
+    <div class="login-container">
+        <form action="/login" method="post" class="login-form">
+            <h1>Login</h1>
+            <label for="login"><b>Login</b></label>
+            <input type="text" placeholder="Enter Email" name="email" class="login" required>
+            <br>
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" class="psw" required>
+
+            <button type="submit" class="submit-button">Login</button>
+            <br>
+            {% if error.message %}
+                <div>{{ error.message }}</div>
+            {% endif %}
+
+        </form>
+    </div>
+</main>
+{% include 'footer.twig' %}

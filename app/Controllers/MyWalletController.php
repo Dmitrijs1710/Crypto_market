@@ -2,49 +2,56 @@
 
 namespace App\Controllers;
 
-use App\Models\UserCoins\UserCoin;
 use App\Redirect;
-use App\Services\CoinFullInfoService;
+use App\Services\BuyService;
 use App\Services\SellService;
+use App\Services\SendService;
 use App\Services\UserCoinsVariablesService;
 use App\Services\UserDataUpdateService;
 use App\Services\UserInformationGetterService;
 use App\Template;
+use App\Validate;
 
 class MyWalletController
 {
-    private CoinFullInfoService $coinFullInfoService;
     private SellService $sellService;
     private UserInformationGetterService $userInformationGetterService;
     private UserDataUpdateService $userDataUpdateService;
     private UserCoinsVariablesService $coinsVariablesService;
+    private SendService $sendService;
+    private BuyService $buyService;
 
     public function __construct(
-        CoinFullInfoService          $coinFullInfoService,
         SellService                  $sellService,
         UserInformationGetterService $userInformationGetterService,
         UserDataUpdateService        $userDataUpdateService,
-        UserCoinsVariablesService    $coinsVariablesService
+        UserCoinsVariablesService    $coinsVariablesService,
+        SendService $sendService,
+        BuyService $buyService
     )
     {
-        $this->coinFullInfoService = $coinFullInfoService;
         $this->sellService = $sellService;
         $this->userInformationGetterService = $userInformationGetterService;
         $this->userDataUpdateService = $userDataUpdateService;
         $this->coinsVariablesService = $coinsVariablesService;
+        $this->sendService = $sendService;
+        $this->buyService = $buyService;
     }
 
-    public function index(): Template
+    public function index(array $vars): Template
     {
-        $coinVariables = $this->coinsVariablesService;
-        return new Template('/MyWallet/index.html', [
-            'userCoins' => $coinVariables->execute()
+        $coinId = $vars['id'] ?? null;
+        $coinVariables = $this->coinsVariablesService->execute($_SESSION['id']?? null, $coinId);
+        return new Template('/MyWallet/index.twig', [
+            'userCoins' => $coinVariables,
+            'sendForm' => $vars['id'] !==null,
+            'sellForm' => $vars['id'] !==null,
         ]);
     }
 
     public function success(): Template
     {
-        return new Template('/MyWallet/successful.html', []);
+        return new Template('/MyWallet/successful.twig', []);
     }
 
     public function deposit(): Redirect
@@ -57,41 +64,74 @@ class MyWalletController
         }
         if (empty($_SESSION['error'])) {
             $this->userDataUpdateService->execute(['balance'], [$user->getBalance() + ($depositAmount * 100)], $id);
-            return new Redirect('/wallet/successful');
+            $_SESSION['popup'] = "Deposit successful";
+            return new Redirect('/wallet');
         }
         return new Redirect('/wallet');
     }
 
     public function sell(array $vars): Redirect
     {
-        $user = $this->userInformationGetterService->execute(intval($_SESSION['id']));
-        $coin = $this->coinFullInfoService->execute(intval(($vars['id'])));
-        $coinCost = $coin->getQuote()->getPrice() * 100;
-        $coinsCount = $user->getUserCoins()->getTotalCountById(intval($vars['id']));
-        if ($coinsCount < floatval($_POST['count'])) {
-            $_SESSION['error'][$vars['id']] = 'Not enough coins';
-        }
-        if (floatval($_POST['count'] <= 0)) {
-            $_SESSION['error'][$vars['id']] = 'Input less than zero';
-        }
+        Validate::userCoinInputChecker(floatval($_POST['count']), intval($vars['id']));
         if (empty($_SESSION['error'])) {
             if ($this->sellService->execute
             (
                 intval($_SESSION['id']),
-                new UserCoin(
-                    $vars['id'],
-                    $_SESSION['id'],
-                    'SELL',
-                    $coinCost,
-                    floatval($_POST['count']),
-                    $coin->getLogoUrl(),
-                    $coin->getName(),
-                    $coin->getSymbol()
-                ),
-                $user->getBalance() + ($coinCost * $_POST['count']))
-            ) {
-                return new Redirect('/wallet/successful');
+                intval($vars['id']),
+                floatval($_POST['count'])
+            )) {
+                $_SESSION['popup'] = "Coin sold successful";
+                return new Redirect('/wallet');
             }
+        }
+        return new Redirect('/wallet');
+    }
+    public function send(array $vars) :Redirect
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $amount = $_POST['amount'];
+        $coinId = $vars['id'];
+        $userId = $_SESSION['id'];
+        Validate::userCoinInputChecker($amount, intval($coinId));
+        Validate::emailChecker($email);
+        Validate::passwordChecker($password);
+        if (empty($_SESSION['error'])){
+            if ($this->sendService->execute($userId, $email,$password, $coinId,$amount)){
+                $_SESSION['popup'] = "Coin sent successful";
+                return new Redirect('/wallet');
+            }
+        }
+        return new Redirect('/wallet/coin=' . $coinId);
+    }
+    public function sellShort(array $vars) :Redirect
+    {
+        Validate::userCoinInputChecker(floatval($_POST['count']), intval($vars['id']));
+        if (empty($_SESSION['error'])) {
+            if ($this->sellService->execute
+            (
+                intval($_SESSION['id']),
+                intval($vars['id']),
+                floatval($_POST['count']),
+                true
+            )) {
+                $_SESSION['popup'] = "Sell short successful";
+                return new Redirect('/wallet');
+            }
+        }
+        return new Redirect('/coin=' . $vars['id']);
+    }
+    public function closeShort(array $vars) :Redirect
+    {
+        if ($this->buyService->execute
+        (
+            intval($_SESSION['id']),
+            intval($vars['id']),
+            0,
+            true
+        )) {
+            $_SESSION['popup'] = "Close short successful";
+            return new Redirect('/wallet');
         }
         return new Redirect('/wallet');
     }

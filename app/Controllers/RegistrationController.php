@@ -25,7 +25,7 @@ class RegistrationController
             header("Location: /");
             exit();
         }
-        return new Template('Registration/registration.html', [
+        return new Template('Registration/registration.twig', [
         ]);
     }
 
@@ -37,15 +37,10 @@ class RegistrationController
         Validate::nameChecker($_POST['name']);
         $user = new User($_POST['email'], $_POST['name'], 0, null, $_POST['password']);
         if ($this->registrationService->execute($user)) {
-            return new Redirect('/registration/successful');
+            $_SESSION['popup'] = "Coin bought successful";
+            return new Redirect('/profile');
         } else {
             return new Redirect('/registration');
         }
-    }
-
-    public function registeredHandler(): Template
-    {
-        return new Template('Registration/successful.html', [
-        ]);
     }
 }

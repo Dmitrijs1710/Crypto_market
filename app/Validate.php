@@ -32,4 +32,38 @@ class Validate
             $_SESSION['error']['name'] = 'incorrect name format';
         }
     }
+
+    public static function balanceChecker(int $balance, float $amount): void
+    {
+
+        if ($balance < $amount) {
+            $_SESSION['error']['buy'] = 'Not enough balance';
+        }
+    }
+
+    public static function balanceInputChecker(float $amount): void
+    {
+        if ($amount <= 0) {
+            $_SESSION['error']['buy'] = 'Incorrect amount';
+        }
+    }
+
+    public static function userCoinChecker(float $coinAmount, float $requiredAmount, int $id): void
+    {
+        if ($coinAmount < $requiredAmount) {
+            $_SESSION['error'][$id] = 'Not enough coins';
+        }
+
+    }
+
+    public static function userCoinInputChecker(float $requiredAmount, ?int $id = null)
+    {
+        if ($id !== null) {
+            if ($requiredAmount <= 0) {
+                $_SESSION['error']['buy'] = 'Incorrect amount';
+            }
+        } else if ($requiredAmount <= 0) {
+            $_SESSION['error'][$id] = 'Input less than zero';
+        }
+    }
 }

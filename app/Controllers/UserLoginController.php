@@ -23,7 +23,7 @@ class UserLoginController
             header("Location: /");
             exit();
         }
-        return new Template('Login/login.html', [
+        return new Template('Login/login.twig', [
         ]);
     }
 
@@ -33,7 +33,8 @@ class UserLoginController
         $password = $_POST['password'];
         $response = ($this->authenticationService)->execute(new UserLoginRequest($email, $password));
         if ($response) {
-            return new Redirect('/login/successful');
+            $_SESSION['popup'] = "Login successful";
+            return new Redirect('/profile');
         }
         $_SESSION['error']['message'] = "Incorrect email or password";
         return new Redirect('/login');
@@ -44,12 +45,5 @@ class UserLoginController
     {
         unset($_SESSION['id']);
         return new Redirect('/login');
-    }
-
-    public function successful(): Template
-    {
-        return new Template('/Login/successful.html', [
-        ]);
-
     }
 }

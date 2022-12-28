@@ -1,0 +1,63 @@
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
+<main class="article-content">
+    <form method="get" class="search-bar">
+        <label>
+            <input type="search" value="{{placehold}}" class="input-search" name="search">
+        </label>
+        <button class="search-button" type="submit" value="Search">
+            <i class="fa fa-search">
+            </i>
+        </button>
+    </form>
+
+    <table class="coin-table">
+        <thead>
+        <tr>
+        <th>#</th>
+        <th>Logo</th>
+        <th>Symbol</th>
+        <th>Name</th>
+        <th>Operation</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key,item in userCoins | reverse(true) %}
+        <tr class="user-coin">
+            <td class="user-coin-name">{{(key+1)}}</td>
+            <td>
+            <img class="user-coin-img" src="{{item.logo | e}}" alt="coin-img">
+            </td>
+            <td class="user-coin-symbol">{{item.getSymbol | e}}</td>
+            <td class="user-coin-name">{{item.getName | e}}</td>
+            <td class="user-coin-name">
+                {% if item.userCoinTransaction.operationType == 'SEND' and item.userId != login.id %}
+
+                    RECEIVED
+                {% else %}
+                    {{ item.userCoinTransaction.operationType }}
+                {% endif %}
+            </td>
+
+                <td class="user-coin-current-price">
+                    {% if item.price %}
+                        <div>{{(item.price/100) | number_format(2,'.')}} $</div>
+                    {% endif %}
+                </td>
+
+            <td class="user-coin-count">
+                {{item.userCoinTransaction.amount | e}}
+            </td>
+            <td class="user-coin-count">
+                {{item.userCoinTransaction.date.format('Y-m-d H:i:s')}}
+            </td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+{% include 'footer.twig' %}

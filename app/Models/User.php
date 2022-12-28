@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\UserCoins\UserCoinCollection;
+use App\Models\Collections\UserCoinCollection;
 
 class User
 {

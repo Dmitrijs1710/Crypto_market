@@ -1,0 +1,72 @@
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
+
+<main class="article-content">
+    <div class="user-coin-container">
+        <div class="coin-container">
+            <div class="coin-info">
+                <h2>Coin Info</h2>
+                <img class="coin-img-full" src="{{ coin.logoUrl }}" alt="coin-img">
+                <div>Name: {{ coin.name }}</div>
+                <div>Symbol: {{ coin.symbol }}</div>
+                <div>Rank: {{ coin.cmcRank }}</div>
+                <div>Circulating Supply: {{ coin.circulatingSupply }}</div>
+                <div>Total Supply: {{ coin.TotalSupply }}</div>
+            </div>
+            <div class="coin-info">
+                <h2>Coin Price</h2>
+                <div>Price: {{ coin.quote.price | round(2,'common') }}$</div>
+                <div>Volume 24h: {{ coin.quote.volume24h }}</div>
+                <div>Percent Change 1h: {{ coin.quote.percentChange1h | round(2,'common') }}%</div>
+                <div>Percent Change 24h: {{ coin.quote.percentChange24h | round(2,'common') }}%</div>
+                <div>Percent Change 7d: {{ coin.quote.percentChange7d | round(2,'common') }}%</div>
+                <div>Market Cap: {{ coin.quote.marketCap | round(2,'common') }}$</div>
+                <div>Last Updated: {{ coin.quote.lastUpdated | date }}</div>
+            </div>
+            {% if buy %}
+            <div class="coin-info">
+                <h2>User Info</h2>
+                <div>Your Balance: {{ login.balance | number_format(2,'.') }}$</div>
+                {% if sell %}
+                    <div>Average Price: {{ avg | round(2,'common')}}$</div>
+                    <div>Coins in Wallet: {{ count }}</div>
+                    <div>Total cost of coins in Wallet: {{ (avg*count) | number_format(2,'.') }}$</div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% if buy %}
+            <div class="buy-sell-forms">
+                <form method="post" action="/coin={{ coin.id | e('url') }}/buy" class="buy-sell-form">
+                    <label for="input-number">Profit buying 1 coin:
+                        {{ (income * -1) | round(2,'common') }}$</label>
+                    <input name="count" id="input-number" type="number" step="0.0000001"
+                           placeholder="{{ (error.buy) }}">
+                    <button type="submit" class="submit-button">Buy</button>
+                </form>
+                {% if sell %}
+                    <form method="post" action="/coin={{ coin.id | e('url') }}/sell" class="buy-sell-form">
+                        <label for="input-token">Profit selling 1 coin:
+                            {{ income | round(2,'common') }}$</label>
+                        <input id="input-token" name="count" type="number" step="0.00000001"
+                               placeholder="{{ (attribute(error, coin.id)) }}">
+                        <button type="submit" class="submit-button">Sell</button>
+                    </form>
+                {% endif %}
+            </div>
+            {% if sellShort %}
+                <div class="buy-sell-forms">
+                    <form method="post" action="/wallet/coin={{ coin.id | e('url') }}/sellshort" class="buy-sell-form">
+                        <label for="input-number">Sell Short:</label>
+                        <input name="count" id="input-number" type="number" step="0.0000001"
+                               placeholder="{{ (error.sell) }}">
+                        <button type="submit" class="submit-button">Short</button>
+                    </form>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+</main>
+{% include 'footer.twig' %}

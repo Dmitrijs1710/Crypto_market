@@ -1,55 +1,48 @@
 <?php
 
-namespace App\Models\UserCoins;
+namespace App\Models;
+
+
+use App\Models\UserCoinProperties\TransactionData;
 
 class UserCoin
 {
-    private int $id;
-    private float $count;
+    private ?int $id;
     private int $userId;
-    private string $operation;
-    private int $price;
-    private string $logo;
+    private ?float $price;
+    private ?string $logo;
     private string $name;
     private string $symbol;
+    private TransactionData $userCoinTransaction;
+    private int $productId;
 
     public function __construct(
-        int    $id,
+        int    $productId,
         int    $userId,
-        string $operation,
-        int    $price,
-        float  $count,
-        string $logo,
+        ?float    $price,
+        ?string $logo,
         string $name,
-        string $symbol
+        string $symbol,
+        TransactionData $userCoinTransaction,
+        ?int    $id = null
     )
     {
         $this->id = $id;
-        $this->count = $count;
         $this->userId = $userId;
-        $this->operation = $operation;
         $this->price = $price;
         $this->logo = $logo;
         $this->name = $name;
         $this->symbol = $symbol;
+        $this->userCoinTransaction = $userCoinTransaction;
+        $this->productId = $productId;
     }
 
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCount(): float
-    {
-        return $this->count;
-    }
-
-
-    public function getOperation(): string
-    {
-        return $this->operation;
-    }
 
 
     public function getUserId(): int
@@ -58,7 +51,7 @@ class UserCoin
     }
 
 
-    public function getPrice(): int
+    public function getPrice(): ?float
     {
         return $this->price;
     }
@@ -80,4 +73,15 @@ class UserCoin
     {
         return $this->logo;
     }
+
+    public function getUserCoinTransaction(): TransactionData
+    {
+        return $this->userCoinTransaction;
+    }
+
+    public function getProductId(): int
+    {
+        return $this->productId;
+    }
+
 }

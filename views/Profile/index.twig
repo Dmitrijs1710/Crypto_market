@@ -1,0 +1,74 @@
+{% include 'header.twig' %}
+{% include 'nav.twig' %}
+
+<main class="article-content">
+    <div class="login-container">
+        <form class="login-form" action="/profile" method="post">
+            <h2>Name change</h2>
+            <div id="profile-name">
+                <label>
+                    <b>New name</b>
+                    <input type="text" placeholder="{{ login.name }}" name="name" class="login">
+                </label>
+                {% if error.name %}
+                    <div class="error">
+                        {{ error.name }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <h2>Email change</h2>
+            <div id="profile-email">
+                <label>
+                    <b>New email</b>
+                    <input type="text" placeholder="{{ login.email }}" name="email" class="login">
+                </label>
+                {% if error.email %}
+                    <div class="error">
+                        {{ error.email }}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <h2>Password change</h2>
+            <div id="profile-password">
+                <label>
+                    <b>Current Password</b>
+                    <input type="password" placeholder="Enter Password" name="passwordCurrent" class="psw">
+                </label>
+                {% if error.currentPassword %}
+                    <div class="error">
+                        {{ error.currentPassword}}
+                    </div>
+                {% endif %}
+                <br>
+                <label>
+                    <b>New Password</b>
+                    <input type="password" placeholder="Enter New Password" name="password" class="psw">
+                </label>
+                {% if error.password %}
+                    <div class="error">
+                        {{ error.password }}
+                    </div>
+                {% endif %}
+                <br>
+                <label>
+                    <b>Repeat Password</b>
+                    <input type="password" placeholder="Repeat Password" name="passwordRepeat" class="psw">
+                </label>
+                {% if error.passwordRepeat %}
+                    <div class="error">
+                        {{ error.passwordRepeat }}
+                    </div>
+                {% endif %}
+                <br>
+                <br>
+                <button type="submit" class="submit-button">Update Changes</button>
+                <br>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+{% include 'footer.twig' %}
