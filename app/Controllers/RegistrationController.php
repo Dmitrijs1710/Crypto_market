@@ -37,7 +37,7 @@ class RegistrationController
         Validate::nameChecker($_POST['name']);
         $user = new User($_POST['email'], $_POST['name'], 0, null, $_POST['password']);
         if ($this->registrationService->execute($user)) {
-            $_SESSION['popup'] = "Coin bought successful";
+            $_SESSION['popup'] = "User registered successful";
             return new Redirect('/profile');
         } else {
             return new Redirect('/registration');
