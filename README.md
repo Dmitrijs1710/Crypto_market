@@ -1,5 +1,9 @@
 # CryptoMarker
 
+<img src='transfer.gif' style='width: 400px' alt='transfer'>
+<img src='basic-view.gif' style='width: 400px' alt='basic-view'>
+<img src='buy-sell-short.gif' style='width: 400px' alt='buy-sell-short'>
+
 <h2>Description: </h2>
 Cryptocurrency sale using CoinMarketCap api and mysql database.
 <br>
@@ -36,3 +40,4 @@ Features: <br>
     <li>Acquire an api key from CoinMarketCap and add your api key to .env file you created</li>
     <li>Your can run it from the console: php -S localhost:<'your desire port'></li>
 </ol>
+
