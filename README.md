@@ -2,7 +2,7 @@
 
 <img src='transfer.gif' alt='transfer'>
 <img src='basic-view.gif' alt='basic-view'>
-<img src='buy-sell-short' alt='buy-sell-short'>
+<img src='buy-sell-short.gif' alt='buy-sell-short'>
 
 <h2>Description: </h2>
 Cryptocurrency sale using CoinMarketCap api and mysql database.
