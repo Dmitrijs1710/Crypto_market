@@ -1,8 +1,8 @@
 # CryptoMarker
 
-<img src='transfer.gif' style='width: 200px' alt='transfer'>
-<img src='basic-view.gif' style='width: 200px' alt='basic-view'>
-<img src='buy-sell-short.gif' style='width: 200px' alt='buy-sell-short'>
+<img src='transfer.gif' style='width: 400px' alt='transfer'>
+<img src='basic-view.gif' style='width: 400px' alt='basic-view'>
+<img src='buy-sell-short.gif' style='width: 400px' alt='buy-sell-short'>
 
 <h2>Description: </h2>
 Cryptocurrency sale using CoinMarketCap api and mysql database.
